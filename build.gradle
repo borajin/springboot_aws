@@ -1,28 +1,7 @@
-//buildscript 블록은 빌드할 때 필요한 외부 dependencies을 설정하는 블록이다. 빌드할 때 + 프로젝트 내에 필요한 경우 이 블록 안과 밖 둘 다 설정해야 한다.
-buildscript {
-    //ext 는 build.gradle 에서 사용할 전역변수를 설정하는 블록이다.
-    ext {
-        springBootVersion = '2.1.7.RELEASE'
-    }
-    //repositories 는 아래 dependencies 블록에 명시한 라이브러리를 다운로드하는 중앙저장소를 설정하는 블록이다.
-    repositories {
-        mavenCentral()
-    }
-    //dependencies 는 중앙저장소에서 다운로드할 라이브러리를 설정하는 블록이다.
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
-}
-
-
-//아래는 buildscript 밖으로, 프로젝트 내에서 필요한 dependencies 을 설정한다.
-
-//다운로드한 dependencies 를 프로젝트에 적용할 것인지 설정하는 블록
 plugins {
+    id "org.springframework.boot" version "2.5.7"
+    id 'io.spring.dependency-management' version "1.0.11.RELEASE" //스프링부트 dependencies 들을 관리해주는 플러그인이라 필수 적용.
     id 'java'
-    id 'eclipse'
-    id 'org.springframework.boot'
-    id 'io.spring.dependency-management' //스프링부트 dependencies 들을 관리해주는 플러그인이라 필수 적용.
 }
 
 //프로젝트의 정보입니다.
@@ -36,8 +15,12 @@ repositories {
 
 //위와 동일합니다.
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-web')  //spring boot web 개발에 필요한 라이브러리
-    testImplementation('org.springframework.boot:spring-boot-starter-test') //spring boot 테스트 환경에 필요한 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-web'//spring boot web 개발에 필요한 라이브러리
+    testImplementation 'org.springframework.boot:spring-boot-starter-test' //spring boot 테스트 환경에 필요한 라이브러리
+
+    //implementation 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 }
 
 test {
